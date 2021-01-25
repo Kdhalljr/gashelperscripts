@@ -1,0 +1,22 @@
+function cutPrependedTextOnCopiedFilesInFolder(folderId) {
+  var COPYTOPREPENDEDTEXT = "Copy of ";
+  
+  var folder = DriveApp.getFolderById(folderId);
+  var files = folder.getFiles();
+  
+  while (files.hasNext()) {
+    var file = files.next();
+    var oldName = file.getName();
+
+    if (oldName.indexOf(COPYTOPREPENDEDTEXT) > -1) {
+      var oldNameArray = oldName.split(" ");
+      oldNameArray.splice(0, 2);
+      var newName = oldNameArray.join(" ");
+      file.setName(newName);
+    }
+  }
+}
+
+function main() {
+  cutPrependedTextOnCopiedFilesInFolder("xxxxxx")
+}
